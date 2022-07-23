@@ -18,16 +18,16 @@ function formatDate(timestamp) {
     "Saturday",
   ];
   let day = days[date.getDay()];
-
   return `${day} ${hours}:${minutes}`;
 }
 
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
-  let day = date.getDate();
+  let day = date.getDay();
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return days[day];
+  //   return day;
 }
 
 function displayForecast(response) {
@@ -36,12 +36,14 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class="row">`;
-  forecast.forEach(function (forecastDay) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
       <div class="col-2">
         <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+       
         <img
         src="http://openweathermap.org/img/wn/${
           forecastDay.weather[0].icon
@@ -56,6 +58,7 @@ function displayForecast(response) {
         </div>
       </div>
     `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -107,34 +110,7 @@ function handSubmit(event) {
   search(cityInputElement.value);
 }
 
-function displayImperialTemperature(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-
-  metricLink.classList.remove("active");
-  imperialLink.classList.add("active");
-  let imperialTemperature = (metricTemperature * 9) / 5 + 32;
-  temperatureElement.innerHTML = Math.round(imperialTemperature);
-}
-
-function displayMetricTemperature(event) {
-  event.preventDefault();
-  let temperatureElement = document.querySelector("#temperature");
-  metricLink.classList.add("active");
-  imperialLink.classList.remove("active");
-  temperatureElement.innerHTML = Math.round(metricTemperature);
-}
-
-let metricTemperature = null;
-
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handSubmit);
 
-let imperialLink = document.querySelector("#imperial");
-imperialLink.addEventListener("click", displayImperialTemperature);
-
-let metricLink = document.querySelector("#metric");
-metricLink.addEventListener("click", displayMetricTemperature);
-
-search("New York");
-displayForecast();
+search("Lublin");

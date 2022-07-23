@@ -16,7 +16,7 @@ ul {
 li {
   list-style: none;
   color: rgb(135, 135, 135);
-  margin: o;
+  margin: 0;
   padding: 0;
   font-size: 16px;
   line-height: 19px;
@@ -71,4 +71,18 @@ li:first-letter {
 }
 .weather-forecast-temperature {
   font-size: 13px;
+}
+.sourse-code {
+  color: #ec6e4c;
+}
+.btn-primary {
+  background-color: #ec6e4c !important;
+  border-color: #ec6e4c !important;
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+  background-color: #bd3510 !important;
+  border-color: #bd3510 !important;
 }
